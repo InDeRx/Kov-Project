@@ -1099,6 +1099,19 @@ void Player::Update( uint32 p_time )
     if(!IsInWorld())
         return;
 
+	// Armistice
+	if(HasAura(64373,NULL))
+	{
+		setFaction(35);
+		SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+	}
+	// Remove Non Attackable Flag
+	if(!HasAura(64373,NULL))
+	{
+		setFactionForRace(getRace());
+		RemoveFlag (UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
+	}
+
     // undelivered mail
     if(m_nextMailDelivereTime && m_nextMailDelivereTime <= time(NULL))
     {
